@@ -1,6 +1,3 @@
-let humanScore = 0;
-let computerScore = 0;
-
 const getComputerChoice = () => {
     const numberChoice = Math.floor(Math.random() * 3) + 1;
     
@@ -33,49 +30,66 @@ const getHumanChoice = () => {
     return humanChoice.toLowerCase();
 }
 
-const playRound = (humanChoice, computerChoice) => {
+const playGame = () => {
+    let humanScore = 0;
+    let computerScore = 0;
     let resultadoJuego = "";
+    let ganador = "";
+
+    const playRound = (humanChoice, computerChoice) => {
+        
+        switch (humanChoice) {
+            case "piedra":
+                if (computerChoice == "tijera") {
+                    console.log()
+                    resultadoJuego = `¡Has ganado! ${humanChoice} le gana a ${computerChoice}`;
+                    humanScore += 1;
+                } else if (computerChoice == "papel") {
+                    resultadoJuego = `¡Has perdido! ${computerChoice} le gana a ${humanChoice}!`;
+                    computerScore += 1;
+                } else {
+                    resultadoJuego = `¡Has empatado! ${humanChoice} empata con ${computerChoice}!`;
+                }
+                break;
+            case "papel":
+                if (computerChoice == "piedra") {
+                    resultadoJuego = `¡Has ganado! ${humanChoice} le gana a ${computerChoice}`;
+                    humanScore += 1;
+                } else if (computerChoice == "tijera") {
+                    resultadoJuego = `¡Has perdido! ${computerChoice} le gana a ${humanChoice}!`;
+                    computerScore += 1;
+                } else {
+                    resultadoJuego = `¡Has empatado! ${humanChoice} empata con ${computerChoice}!`;
+                }
+                break;
+            case "tijera":
+                if (computerChoice == "papel") {
+                    resultadoJuego = `¡Has ganado! ${humanChoice} le gana a ${computerChoice}`;
+                    humanScore += 1;
+                } else if (computerChoice == "piedra") {
+                    resultadoJuego = `¡Has perdido! ${computerChoice} le gana a ${humanChoice}!`;
+                    computerScore += 1;
+                } else {
+                    resultadoJuego = `¡Has empatado! ${humanChoice} empata con ${computerChoice}!`
+                }
+                break;
+            default:
+                break;
+        }
     
-    switch (humanChoice) {
-        case "piedra":
-            if (computerChoice == "tijera") {
-                console.log()
-                resultadoJuego = `¡Has ganado! ${humanChoice} le gana a ${computerChoice}`;
-                humanScore += 1;
-            } else if (computerChoice == "papel") {
-                resultadoJuego = `¡Has perdido! ${computerChoice} le gana a ${humanChoice}!`;
-                computerScore += 1;
-            } else {
-                resultadoJuego = `¡Has empatado! ${humanChoice} empata con ${computerChoice}!`;
-            }
-            break;
-        case "papel":
-            if (computerChoice == "piedra") {
-                resultadoJuego = `¡Has ganado! ${humanChoice} le gana a ${computerChoice}`;
-                humanScore += 1;
-            } else if (computerChoice == "tijera") {
-                resultadoJuego = `¡Has perdido! ${computerChoice} le gana a ${humanChoice}!`;
-                computerScore += 1;
-            } else {
-                resultadoJuego = `¡Has empatado! ${humanChoice} empata con ${computerChoice}!`;
-            }
-            break;
-        case "tijera":
-            if (computerChoice == "papel") {
-                resultadoJuego = `¡Has ganado! ${humanChoice} le gana a ${computerChoice}`;
-                humanScore += 1;
-            } else if (computerChoice == "piedra") {
-                resultadoJuego = `¡Has perdido! ${computerChoice} le gana a ${humanChoice}!`;
-                computerScore += 1;
-            } else {
-                resultadoJuego = `¡Has empatado! ${humanChoice} empata con ${computerChoice}!`
-            }
-            break;
-        default:
-            break;
     }
 
-    console.log(resultadoJuego, humanScore, computerScore);
+    for (let index = 0; index < 5; index++) {
+        playRound(getHumanChoice(), getComputerChoice());           
+        console.log(resultadoJuego);
+        // console.log(resultadoJuego, humanScore, computerScore);
+    }
+
+    if (humanScore > computerScore) {
+        console.log(`¡Ganaste!, has ganado ${humanScore} a ${computerScore}`);
+    } else {
+        console.log(`Perdiste!, la computadora gana ${computerScore} a ${humanScore}`);
+    }
 }
 
-playRound(getHumanChoice(), getComputerChoice());
+playGame();
